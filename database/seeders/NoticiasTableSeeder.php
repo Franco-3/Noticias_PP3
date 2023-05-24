@@ -15,6 +15,7 @@ class NoticiasTableSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $n = new Noticia();
         $n->titulo = 'Título de prueba';
         $n->cuerpo = 'Cuerpo de prueba';
@@ -47,5 +48,9 @@ class NoticiasTableSeeder extends Seeder
             $n->imagen = $faker->optional()->imageUrl(150,150);
             $n->save();
         }
+        */
+
+        Noticia::factory(30)->create();
+
     }
 }

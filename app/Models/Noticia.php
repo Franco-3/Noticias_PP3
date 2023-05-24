@@ -11,4 +11,10 @@ class Noticia extends Model
     use HasFactory;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+    protected $fillable = ['titulo', 'cuerpo', 'autor', 'imagen'];
+
+    public function creadaPor()
+    {
+        return $this->belongsTo(User::class, 'autor');
+    }
 }

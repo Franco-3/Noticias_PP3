@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +16,8 @@ use App\Http\Controllers\NoticiaController;
 */
 
 Route::get('/', [NoticiaController::class, 'index'])->name('noticias.index');
-Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.index');
-Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::resource('noticias', NoticiaController::class);
+Route::resource('categorias', CategoriaController::class);
+//Route::get('/noticias/create', [NoticiaController::class, 'create'])->name('noticias.create');
+//Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.index');
+//Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');

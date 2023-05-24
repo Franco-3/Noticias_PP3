@@ -18,9 +18,13 @@
             <ul class="navbar-nav mr-auto">
                 @section('menu')
                 <li class="nav-item active">
-                    <a href="{{ route('noticias.index') }}" class="nav-link">Noticias <span class="sr-only"></span></a>
+                    <a href="{{ route('noticias.index') }}" class="nav-link">Noticias<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item"><a href="" class="nav-link">{{__('noticias.nueva')}}</a></li>
+                <li class="nav-item"><a href="{{ route('noticias.create') }}" class="nav-link">Crear Noticia</a></li>
+                <li class="nav-item active">
+                    <a href="{{ route('categorias.index') }}" class="nav-link">Categorias<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item"><a href="{{ route('categorias.create') }}" class="nav-link">Crear Categoria</a></li>
                 @show
             </ul>
         </div>
