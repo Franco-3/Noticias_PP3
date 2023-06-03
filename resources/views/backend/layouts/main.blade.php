@@ -25,8 +25,41 @@
                     <a href="{{ route('categorias.index') }}" class="nav-link">Categorias<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item"><a href="{{ route('categorias.create') }}" class="nav-link">Crear Categoria</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
                 @show
             </ul>
+            <ul class="navbar-nav ms-auto me-5">
+            <!-- Authentication Links -->
+            @guest
+                @if (Route::has('login'))
+                <li class="nav-item text-light d-flex">
+                        <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
+                    </li>
+                @endif
+                @if (Route::has('register'))
+                    <li class="nav-item text-light">
+                        <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                    </li>
+                @endif
+            @else
+                <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}</a>                        
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">
+                                                    Cerrar Sesión
+                                                    </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                               @csrf
+                            </form>
+                        </ul>
+                </li>            
+            @endguest            
+           @show        
+           </ul>                    
+
         </div>
     
     </nav>

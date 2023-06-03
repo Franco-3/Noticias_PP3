@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unique('titulo');
             $table->bigInteger('autor')->unsigned();
+            $table->string('categoria');
         });
     }
 

@@ -36,6 +36,7 @@ class NoticiaController extends Controller
                 'titulo' => 'required|unique:noticias,titulo,' . $id,
                 'cuerpo' => 'required',
                 'autor' => 'required',
+                'categoria' => 'required',
                 'image' => 'image|max:2048'
             ]
         );
@@ -65,6 +66,7 @@ class NoticiaController extends Controller
                 'titulo' => 'required|unique:noticias',
                 'cuerpo' => 'required',
                 'autor' => 'required',
+                'categoria' => 'required',
                 'image' => 'image|max:2048'
             ]
         );
@@ -73,7 +75,9 @@ class NoticiaController extends Controller
         $noticia->titulo = $request->input('titulo');
         $noticia->cuerpo = $request->input('cuerpo');
         $archivoImagen = $request->file('imagen');
-        $noticia->autor = $request->input('autor');
+        //$noticia->autor = $request->input('autor');
+        $noticia->autor = Auth::user()->name;
+        $noticia->categoria = $request->input('categoria');
         $noticia->save();
         //php artisan storage:link
         if ($request->hasFile('imagen')) {

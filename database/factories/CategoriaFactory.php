@@ -18,9 +18,11 @@ class CategoriaFactory extends Factory
      */
     public function definition(): array
     {
+
+        //categoria : array = ['Deporte', 'Politica', 'Entretenimiento', 'Salud', 'Internacional'];
         
         return [
-            "name" => fake()->unique()->sentence,
+            "name" => fake()->unique()->word(),
             "description" => fake()->paragraphs(1, true),
         ];
     }

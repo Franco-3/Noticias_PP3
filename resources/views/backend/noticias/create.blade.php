@@ -26,7 +26,6 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-        <!--
         <div class="form-group @if ($errors->has('imagen')) has-error has-feedback @endif">
             {{ Form::label('imagen', 'Imagen', ['class' => 'control-label']) }}
             {{ Form::file('imagen') }}
@@ -34,10 +33,9 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-            -->
         <div class="form-group">
             {{ Form::label('autor', 'Autor', ['class' => 'control-label']) }}
-            {{ Form::select('autor', $users, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un autor']) }}
+            {{ Auth::user()->name }}
             @error('autor')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror

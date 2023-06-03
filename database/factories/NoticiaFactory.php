@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use App\Models\Categoria;
 use Faker;
 
 /**
@@ -26,6 +27,7 @@ class NoticiaFactory extends Factory
             'created_at' => $created,
             'updated_at' => fake()->dateTimeBetween($created),
             "autor" => User::all()->random()->id,
+            "categoria" => Categoria::all()->random()->id,
         ];
     }
 }
