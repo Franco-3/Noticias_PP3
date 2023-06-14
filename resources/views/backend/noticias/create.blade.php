@@ -34,8 +34,15 @@
             @enderror
         </div>
         <div class="form-group">
+            {{ Form::label('categoria', 'Categoria', ['class' => 'control-label']) }}
+            {{ Form::select('categoria', $categorias, null, ['class' => 'form-control']) }}
+            @error('categoria')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             {{ Form::label('autor', 'Autor', ['class' => 'control-label']) }}
-            {{ Auth::user()->name }}
+            {{ Form::text('autor', Auth::user()->name, ['class' => 'form-control']) }}
             @error('autor')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror

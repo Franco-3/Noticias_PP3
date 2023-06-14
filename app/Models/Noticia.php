@@ -17,4 +17,9 @@ class Noticia extends Model
     {
         return $this->belongsTo(User::class, 'autor');
     }
+
+    public function enCategoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria');
+    }
 }

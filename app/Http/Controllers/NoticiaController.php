@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Factories\NoticiaFactory;
 use App\Models\Noticia;
 use App\Models\User;
+use App\Models\Categoria;
+use Illuminate\Support\Facades\Auth;
 
 class NoticiaController extends Controller
 {
@@ -13,7 +15,8 @@ class NoticiaController extends Controller
         //$noticias = NoticiaFactory::generarNoticias(30);
         //$noticias = Noticia::all();
         $noticias = Noticia::orderBy('created_at', 'desc')->with('creadaPor')->paginate(6);
-        return view('backend.noticias.index', compact('noticias'));
+        $categorias = Categoria::pluck('name', 'id');
+        return view('backend.noticias.index', compact('noticias'), compact('categorias'));
     }
 
     /**
@@ -22,7 +25,8 @@ class NoticiaController extends Controller
     public function create()
     {
         $users = User::pluck('name', 'id');
-        return view('backend.noticias.create', compact('users'));
+        $categorias = Categoria::pluck('name', 'id');
+        return view('backend.noticias.create', compact('users'), compact('categorias'));
     }
 
     /**
@@ -65,7 +69,7 @@ class NoticiaController extends Controller
             [
                 'titulo' => 'required|unique:noticias',
                 'cuerpo' => 'required',
-                'autor' => 'required',
+                //'autor' => 'required',
                 'categoria' => 'required',
                 'image' => 'image|max:2048'
             ]
@@ -75,9 +79,12 @@ class NoticiaController extends Controller
         $noticia->titulo = $request->input('titulo');
         $noticia->cuerpo = $request->input('cuerpo');
         $archivoImagen = $request->file('imagen');
+        
         //$noticia->autor = $request->input('autor');
-        $noticia->autor = Auth::user()->name;
+        
+        $noticia->autor = Auth::user()->id;
         $noticia->categoria = $request->input('categoria');
+
         $noticia->save();
         //php artisan storage:link
         if ($request->hasFile('imagen')) {
@@ -91,19 +98,6 @@ class NoticiaController extends Controller
         $request->session()->flash('status', 'Se guardó correctamente la noticia ' . $noticia->titulo);
         return redirect()->route('noticias.index');
     }
-
-    /*
-    public function show($id){
-        $noticia = (object) array(
-            "titulo" => "What is Lorem Ipsum?",
-            "cuerpo" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellendus corporis accusamus quaerat in! Tempore temporibus nam soluta aperiam cumque, quis praesentium vero, consectetur officiis deserunt magni ipsum reprehenderit quae!",
-            "imagen" => "https://th.bing.com/th/id/OIP.nfMLArFatrmul2DtPs3LJgHaFY?w=244&h=180&c=7&r=0&o=5&pid=1.7",
-            "id" => $id,
-
-        );
-        return view('backend.noticias.show', compact('noticia'));
-    }
-    */
     
     /**
      * Display the specified resource.
@@ -137,6 +131,12 @@ class NoticiaController extends Controller
     public function porAutor($autor)
     {
         $noticias = Noticia::where('autor', $autor)->with('creadaPor')->paginate(10);
+        return view('backend.noticias.index', ['noticias' => $noticias]);
+    }
+
+    public function porCategoria($categoria)
+    {
+        $noticias = Noticia::where('categoria', $categoria)->with('enCategoria')->paginate(10);
         return view('backend.noticias.index', ['noticias' => $noticias]);
     }
 }

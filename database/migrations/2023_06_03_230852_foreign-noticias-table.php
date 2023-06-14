@@ -8,7 +8,6 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     * @return noticias
      */
     public function up(): void
     {
@@ -18,17 +17,22 @@ return new class extends Migration
                     ->on('users')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+            $table->foreign('categoria')
+                    ->references('id')
+                    ->on('categorias')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
-     * @return noticias
      */
     public function down(): void
     {
         Schema::table('noticias', function(Blueprint $table){
             $table->dropForeign('noticias_autor_foreign');
+            $table->dropForeign('noticias-categoria-foreign');
         });
     }
 };

@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-secondary-subtle">
     
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a href="#" class="navbar-brand text-info">Noticias</a>
@@ -20,11 +20,13 @@
                 <li class="nav-item active">
                     <a href="{{ route('noticias.index') }}" class="nav-link">Noticias<span class="sr-only"></span></a>
                 </li>
+                @guest
+                @else
                 <li class="nav-item"><a href="{{ route('noticias.create') }}" class="nav-link">Crear Noticia</a></li>
+                @endguest  
                 <li class="nav-item active">
                     <a href="{{ route('categorias.index') }}" class="nav-link">Categorias<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item"><a href="{{ route('categorias.create') }}" class="nav-link">Crear Categoria</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
                 @show
             </ul>

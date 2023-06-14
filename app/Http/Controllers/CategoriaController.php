@@ -8,6 +8,7 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
@@ -102,4 +103,5 @@ class CategoriaController extends Controller
         $categoria->delete();
         return redirect()->route('categorias.index');
     }
+    
 }

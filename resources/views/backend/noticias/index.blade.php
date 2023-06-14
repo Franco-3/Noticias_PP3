@@ -1,9 +1,24 @@
 @extends('backend.layouts.main')
 @section('title', __('noticias.index'))
 @section('content')
+
+@section('menu')
+    @parent
+    
+    <ul class="navbar-nav ms-auto me-5">
+                <li>
+                    <div class="nav-item text-light d-flex">
+                        {{ Form::select('categoria', $categorias, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una categoria']) }}
+                    </div>
+                </li>
+            </ul>
+@endsection
+
 @forelse($noticias as $noticia)
-@if($loop->iteration % 2 != 0)<div class="row">@endif
-    <div class="col-md-6">
+@if ($loop->first)
+<div class="row mt-3">
+    @endif
+    <div class="col-md-4">
     <div class="card">
             @if ($noticia->imagen)
             @if (Str::startsWith($noticia->imagen, 'http'))
@@ -12,16 +27,19 @@
             <img src="{{ asset('/storage/' . $noticia->imagen) }}" class="card-img-top" alt="...">
             @endif
             @else
-            <img src="../img/no_image.png" alt="no image">
+            <img src="../img/no_image.png" alt="no image" class="card-img-top">
             <hr>
             @endif
-            <div class="card-body">
-                <h3 class="card-title text-info">{{ $noticia->titulo }}</h3>
+            <div class="card-body bg-secondary text-dark bg-gradient bg-opacity-50">
+                <h3 class="card-title fw-bold text-dark">{{ $noticia->titulo }}</h3>
                 <p class="card-text text-end">{{ $noticia->creadaPor->name }}</p>
                 <p class="card-text">{!! Str::limit($noticia->cuerpo) !!}</p>
-                <p class="card-text text-start">
+                <div class="card-text text-start">
                     <small>{{ $noticia->created_at->format('d-m-Y') }}</small>
-                </p>
+                </div>
+                <div class="card-text text-end">
+                    <small>{{ $noticia->enCategoria->name }}</small>
+                </div>
                 {{-- Esto es un comentario en Blade --}}
                 <div class="card-footer">
                     <div class="row">
@@ -38,8 +56,11 @@
             </div>
         </div>
     </div>
-@if($loop->iteration % 2 == 0)
-</div><hr>
+
+@if ($loop->iteration % 3 == 0)
+</div>
+<hr>
+<div class="row">
 @endif
 @empty
 <p class="text-capitalize"> No hay noticias </p>
@@ -54,5 +75,6 @@
       public function boot() { Paginator::useBootstrap(); } -->
     {!! $noticias->links() !!}
 </div>
+
 @endsection
     

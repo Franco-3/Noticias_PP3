@@ -1,6 +1,11 @@
 @extends('backend.layouts.main')
 @section('title', __('categorias.index'))
 @section('content')
+
+@section('menu')
+    @parent
+    <li class="nav-item"><a href="{{ route('categorias.create') }}" class="nav-link">Crear Categoria</a></li>
+@endsection
 @forelse($categorias as $categoria)
 
   
